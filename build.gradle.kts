@@ -1,6 +1,7 @@
 import com.vanniktech.maven.publish.SonatypeHost
 import kotlinx.kover.gradle.plugin.dsl.CoverageUnit
 import org.jetbrains.kotlin.gradle.ExperimentalKotlinGradlePluginApi
+import org.jetbrains.kotlin.gradle.ExperimentalWasmDsl
 import org.jetbrains.kotlin.gradle.dsl.KotlinVersion
 
 plugins {
@@ -43,8 +44,15 @@ kotlin {
         browser()
         nodejs()
     }
+    @OptIn(ExperimentalWasmDsl::class)
+    wasmJs {
+      browser()
+    }
     macosX64()
     macosArm64()
+    iosX64()
+    iosArm64()
+    iosSimulatorArm64()
     linuxX64()
     linuxArm64()
     mingwX64()
