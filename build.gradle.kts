@@ -39,9 +39,6 @@ kover {
 }
 
 kotlin {
-    // JVM
-    jvm()
-
     // Web
     js {
         browser()
@@ -66,6 +63,9 @@ kotlin {
     watchosArm64()
     watchosSimulatorArm64()
     watchosDeviceArm64()
+
+    // JVM
+    jvm()
 
     // Linux
     linuxX64()
