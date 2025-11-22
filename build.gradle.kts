@@ -39,23 +39,47 @@ kover {
 }
 
 kotlin {
+    // JVM
     jvm()
+
+    // Web
     js {
         browser()
         nodejs()
     }
     @OptIn(ExperimentalWasmDsl::class)
     wasmJs {
-      browser()
+        browser()
     }
+
+    // Apple platforms
     macosX64()
     macosArm64()
     iosX64()
     iosArm64()
     iosSimulatorArm64()
+    tvosX64()
+    tvosArm64()
+    tvosSimulatorArm64()
+    watchosX64()
+    watchosArm32()
+    watchosArm64()
+    watchosSimulatorArm64()
+    watchosDeviceArm64()
+
+    // Linux
     linuxX64()
     linuxArm64()
+
+    // Windows
     mingwX64()
+
+    // Android Native
+    androidNativeX64()
+    androidNativeX86()
+    androidNativeArm32()
+    androidNativeArm64()
+
     sourceSets {
         val commonMain by getting {
             explicitApi()
