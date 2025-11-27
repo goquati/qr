@@ -1,6 +1,7 @@
 import com.vanniktech.maven.publish.SonatypeHost
 import kotlinx.kover.gradle.plugin.dsl.CoverageUnit
 import org.jetbrains.kotlin.gradle.ExperimentalKotlinGradlePluginApi
+import org.jetbrains.kotlin.gradle.ExperimentalWasmDsl
 import org.jetbrains.kotlin.gradle.dsl.KotlinVersion
 
 plugins {
@@ -38,16 +39,47 @@ kover {
 }
 
 kotlin {
-    jvm()
+    // Web
     js {
         browser()
         nodejs()
     }
+    @OptIn(ExperimentalWasmDsl::class)
+    wasmJs {
+        browser()
+    }
+
+    // Apple platforms
     macosX64()
     macosArm64()
+    iosX64()
+    iosArm64()
+    iosSimulatorArm64()
+    tvosX64()
+    tvosArm64()
+    tvosSimulatorArm64()
+    watchosX64()
+    watchosArm32()
+    watchosArm64()
+    watchosSimulatorArm64()
+    watchosDeviceArm64()
+
+    // JVM
+    jvm()
+
+    // Linux
     linuxX64()
     linuxArm64()
+
+    // Windows
     mingwX64()
+
+    // Android Native
+    androidNativeX64()
+    androidNativeX86()
+    androidNativeArm32()
+    androidNativeArm64()
+
     sourceSets {
         val commonMain by getting {
             explicitApi()
