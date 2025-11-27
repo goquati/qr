@@ -57,6 +57,9 @@ kotlin {
                 apiVersion.set(KotlinVersion.KOTLIN_2_0)
                 languageVersion.set(KotlinVersion.KOTLIN_2_0)
             }
+            dependencies {
+                implementation("org.jetbrains:annotations:26.0.2")
+            }
         }
         val commonTest by getting {
             dependencies {

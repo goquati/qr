@@ -47,6 +47,17 @@ public class QrCode internal constructor(
         else -> modules[x, y]
     }
 
+    public val sequence: Sequence<Pair<Pair<Int, Int>, Boolean>>
+        get() = (0..<size).asSequence()
+            .flatMap { x -> (0..<size).asSequence().map { y -> x to y } }
+            .map { pos -> pos to get(pos.first, pos.second) }
+
+    public fun isFinderPixel(x: Int, y: Int): Boolean =
+        (x < 7 && y < 7) || (x < 7 && y >= size - 7) || (x >= size - 7 && y < 7)
+
+    public fun blackPixelSequence(withFinderPixel: Boolean = true): Sequence<Pair<Int, Int>> = sequence
+        .mapNotNull { (pos, color) -> pos.takeIf { color } }
+        .filter { pos -> withFinderPixel || !isFinderPixel(pos.first, pos.second) }
 
     @JvmInline
     public value class Version(public val value: Int) {
@@ -78,20 +89,20 @@ public class QrCode internal constructor(
     /**
      * The error correction level in a QR Code symbol.
      */
-    public enum class Ecc {
+    public enum class Ecc(public val restorePercentage: Double) {
         // Must be declared in ascending order of error protection
         // so that the implicit ordinal() and values() work properly
         /** The QR Code can tolerate about  7% erroneous codewords. */
-        LOW,
+        LOW(0.07),
 
         /** The QR Code can tolerate about 15% erroneous codewords. */
-        MEDIUM,
+        MEDIUM(0.15),
 
         /** The QR Code can tolerate about 25% erroneous codewords. */
-        QUARTILE,
+        QUARTILE(0.25),
 
         /** The QR Code can tolerate about 30% erroneous codewords. */
-        HIGH,
+        HIGH(0.3),
     }
 
     public companion object {
